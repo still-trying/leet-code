@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+          unordered_map<int, int> remainderIndexMap{{0, -1}};
+        int cumulativeSum = 0;
+
+        for (int i = 0; i < nums.size(); ++i) {
+            cumulativeSum += nums[i];
+            if (k != 0) cumulativeSum %= k;
+
+            if (remainderIndexMap.count(cumulativeSum)) {
+                if (i - remainderIndexMap[cumulativeSum] > 1)
+                    return true;
+            } else {
+                remainderIndexMap[cumulativeSum] = i;
+            }
+        }
+        return false;
+
+    }
+};
